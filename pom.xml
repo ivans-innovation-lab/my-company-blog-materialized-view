@@ -6,7 +6,7 @@
 	<packaging>jar</packaging>
 	<name>my company blog materialized view</name>
 	<description>Blog project - Query side</description>
-	<version>1.0.0.3</version>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>com.idugalic</groupId>
@@ -17,7 +17,7 @@
 	<scm>
 		<connection>scm:git:https://github.com/ivans-innovation-lab/my-company-blog-materialized-view.git</connection>
 		<developerConnection>scm:git:https://github.com/ivans-innovation-lab/my-company-blog-materialized-view.git</developerConnection>
-		<tag>v1.0.0.3</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<dependencies>
