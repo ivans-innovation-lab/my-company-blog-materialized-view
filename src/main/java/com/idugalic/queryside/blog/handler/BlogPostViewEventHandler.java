@@ -15,33 +15,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Event handlers for {@link BlogPostCreatedEvent}, {@link BlogPostPublishedEvent}
+ * Event handlers for {@link BlogPostCreatedEvent},
+ * {@link BlogPostPublishedEvent}
  * 
  * @author idugalic
  *
  */
 @ProcessingGroup("default")
 @Component
-public class BlogPostViewEventHandler {
+class BlogPostViewEventHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BlogPostViewEventHandler.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BlogPostViewEventHandler.class);
+	private BlogPostRepository blogPostRepository;
 
-    @Autowired
-    private BlogPostRepository blogPostRepository;
+	@Autowired
+	public BlogPostViewEventHandler(BlogPostRepository blogPostRepository) {
+		this.blogPostRepository = blogPostRepository;
+	}
 
-    @EventHandler
-    public void handle(BlogPostCreatedEvent event, @SequenceNumber Long version) {
-        LOG.info("BlogPostCreatedEvent: [{}] ", event.getId());
-        blogPostRepository.save(new BlogPost(event, version));
-    }
+	@EventHandler
+	public void handle(BlogPostCreatedEvent event, @SequenceNumber Long version) {
+		LOG.info("BlogPostCreatedEvent: [{}] ", event.getId());
+		blogPostRepository.save(new BlogPost(event, version));
+	}
 
-    @EventHandler
-    public void handle(BlogPostPublishedEvent event, @SequenceNumber Long version) {
-        LOG.info("BlogPostCreatedEvent: [{}] ", event.getId());
-        BlogPost post = blogPostRepository.findOne(event.getId());
-        post.setDraft(false);
-        post.setPublishAt(event.getPublishAt());
-        post.setVersion(version);
-        blogPostRepository.save(post);
-    }
+	@EventHandler
+	public void handle(BlogPostPublishedEvent event, @SequenceNumber Long version) {
+		LOG.info("BlogPostCreatedEvent: [{}] ", event.getId());
+		BlogPost post = blogPostRepository.findOne(event.getId());
+		post.setDraft(false);
+		post.setPublishAt(event.getPublishAt());
+		post.setVersion(version);
+		blogPostRepository.save(post);
+	}
 }
