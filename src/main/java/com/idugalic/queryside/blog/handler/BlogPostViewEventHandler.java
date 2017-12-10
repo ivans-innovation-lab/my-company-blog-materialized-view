@@ -2,6 +2,7 @@ package com.idugalic.queryside.blog.handler;
 
 import com.idugalic.common.blog.event.BlogPostCreatedEvent;
 import com.idugalic.common.blog.event.BlogPostPublishedEvent;
+import com.idugalic.common.blog.event.BlogPostUnPublishedEvent;
 import com.idugalic.queryside.blog.domain.BlogPost;
 import com.idugalic.queryside.blog.repository.BlogPostRepository;
 
@@ -35,16 +36,22 @@ class BlogPostViewEventHandler {
 
 	@EventHandler
 	public void handle(BlogPostCreatedEvent event, @SequenceNumber Long version) {
-		LOG.info("BlogPostCreatedEvent: [{}] ", event.getId());
 		blogPostRepository.save(new BlogPost(event, version));
 	}
 
 	@EventHandler
 	public void handle(BlogPostPublishedEvent event, @SequenceNumber Long version) {
-		LOG.info("BlogPostCreatedEvent: [{}] ", event.getId());
 		BlogPost post = blogPostRepository.findOne(event.getId());
-		post.setDraft(false);
+		post.setDraft(Boolean.FALSE);
 		post.setPublishAt(event.getPublishAt());
+		post.setVersion(version);
+		blogPostRepository.save(post);
+	}
+
+	@EventHandler
+	public void handle(BlogPostUnPublishedEvent event, @SequenceNumber Long version) {
+		BlogPost post = blogPostRepository.findOne(event.getId());
+		post.setDraft(Boolean.TRUE);
 		post.setVersion(version);
 		blogPostRepository.save(post);
 	}
