@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 -   Version upgraded to [1.1.0]
 -   Vesrion of ' my-company-common-blog' dependency upgraded to [1.1.0]
+-   New handler for `BlogPostUnPublishedEvent.java`
 
 ## [1.0.0][] - 2017-10-15
 
