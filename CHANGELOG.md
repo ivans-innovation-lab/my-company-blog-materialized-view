@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 [Unreleased]: https://github.com/ivans-innovation-lab/my-company-blog-materialized-view/compare/1.1.0...HEAD
 
-## [1.1.0][] - 2017-12-08
+## [1.1.0][] - 2017-12-10
 
 [1.1.0]: https://github.com/ivans-innovation-lab/my-company-blog-materialized-view/compare/1.0.0...1.1.0
 
@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 -   Version upgraded to [1.1.0]
 -   Vesrion of ' my-company-common-blog' dependency upgraded to [1.1.0]
--   New handler for `BlogPostUnPublishedEvent.java`
+-   New event handler for `BlogPostUnPublishedEvent.java`
 
 ## [1.0.0][] - 2017-10-15
 
