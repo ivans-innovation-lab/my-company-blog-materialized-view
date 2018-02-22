@@ -41,7 +41,7 @@ class BlogPostViewEventHandler {
 
 	@EventHandler
 	public void handle(BlogPostPublishedEvent event, @SequenceNumber Long version) {
-		BlogPost post = blogPostRepository.findOne(event.getId());
+		BlogPost post = blogPostRepository.findById(event.getId()).get();
 		post.setDraft(Boolean.FALSE);
 		post.setPublishAt(event.getPublishAt());
 		post.setAggregateVersion(version);
@@ -50,7 +50,7 @@ class BlogPostViewEventHandler {
 
 	@EventHandler
 	public void handle(BlogPostUnPublishedEvent event, @SequenceNumber Long version) {
-		BlogPost post = blogPostRepository.findOne(event.getId());
+		BlogPost post = blogPostRepository.findById(event.getId()).get();
 		post.setDraft(Boolean.TRUE);
 		post.setAggregateVersion(version);
 		blogPostRepository.save(post);
